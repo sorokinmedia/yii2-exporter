@@ -7,21 +7,23 @@ use apostal89\exporter\Adapter\TxtAdapter;
 /**
  * Class TxtExporter
  * @package apostal89\exporter
+ *
+ * @property string $path
+ * @property string $delimiter
+ * @property string $extension
  */
 class TxtExporter extends ExporterComponent
 {
+    public $path;
+    public $delimiter = null;
+    public $extension = null;
+
     /**
      * @inheritdoc
      */
     public function init()
     {
-        if ($this->exporter === null){
-            throw new \InvalidArgumentException('Не указан адаптер');
-        }
-        if (!isset($this->exporter['class'])){
-            throw new \InvalidArgumentException('Не указан класс адаптера');
-        }
-        if (!isset($this->exporter['path'])){
+        if (!isset($this->path)){
             throw new \InvalidArgumentException('Не указан дефолтный каталог для сохранения файлов');
         }
         parent::init();
@@ -32,15 +34,7 @@ class TxtExporter extends ExporterComponent
      */
     protected function prepareAdapter() : AdapterInterface
     {
-        $delimiter = null;
-        $extension = null;
-        if (isset($this->exporter['delimiter'])){
-            $delimiter = $this->exporter['delimiter'];
-        }
-        if (isset($this->exporter['extension'])){
-            $extension = $this->exporter['extension'];
-        }
         /** @var TxtAdapter $adapter */
-        return new TxtAdapter($this->exporter['path'], $delimiter, $extension);
+        return new TxtAdapter($this->path, $this->delimiter, $this->extension);
     }
 }
