@@ -1,6 +1,6 @@
 {
     "name": "apostal89/yii2-exporter",
-    "description": "Exporter for Yii2(gii)",
+    "description": "Exporter for Yii2",
     "type": "yii2-extension",
     "keywords": ["yii2", "yii 2"],
     "license": "BSD-3-Clause",
