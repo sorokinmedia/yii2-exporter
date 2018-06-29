@@ -1,0 +1,38 @@
+{
+    "name": "apostal89/yii2-exporter",
+    "description": "Exporter for Yii2(gii)",
+    "type": "yii2-extension",
+    "keywords": ["yii2", "yii 2"],
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Pavel Semin",
+            "email": "raskrutka89@gmail.com",
+            "homepage": "https://vk.com/semin_p"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/apostal89/yii2-exporter/issues?state=open",
+        "source": "https://github.com/apostal89/yii2-exporter"
+    },
+    "require": {
+        "yiisoft/yii2": ">=2.0.6"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "apostal89\\exporter\\": "src/",
+            "apostal89\\exporter\\Adapter\\": "src/Adapter/",
+            "apostal89\\exporter\\Exporter\\": "src/Exporter",
+            "apostal89\\exporter\\tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "asset-installer-paths": {
+            "npm-asset-library": "vendor/npm",
+            "bower-asset-library": "vendor/bower"
+        }
+    }
+}
