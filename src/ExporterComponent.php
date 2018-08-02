@@ -1,13 +1,13 @@
 <?php
-namespace apostal89\exporter;
+namespace sorokinmedia\exporter;
 
-use apostal89\exporter\Adapter\AdapterInterface;
-use apostal89\exporter\Exporter\Exporter;
+use sorokinmedia\exporter\Adapter\AdapterInterface;
+use sorokinmedia\exporter\Exporter\Exporter;
 use yii\base\Component;
 
 /**
  * Class ExporterComponent
- * @package apostal89\exporter
+ * @package sorokinmedia\exporter
  *
  * @property Exporter $exporter
  */

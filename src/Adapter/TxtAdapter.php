@@ -1,9 +1,9 @@
 <?php
-namespace apostal89\exporter\Adapter;
+namespace sorokinmedia\exporter\Adapter;
 
 /**
  * Class TxtAdapter
- * @package apostal89\exporter\Adapter
+ * @package sorokinmedia\exporter\Adapter
  */
 class TxtAdapter extends AbstractAdapter
 {

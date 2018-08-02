@@ -1,12 +1,12 @@
 <?php
-namespace apostal89\exporter;
+namespace sorokinmedia\exporter;
 
-use apostal89\exporter\Adapter\AdapterInterface;
-use apostal89\exporter\Adapter\TxtAdapter;
+use sorokinmedia\exporter\Adapter\AdapterInterface;
+use sorokinmedia\exporter\Adapter\TxtAdapter;
 
 /**
  * Class TxtExporter
- * @package apostal89\exporter
+ * @package sorokinmedia\exporter
  *
  * @property string $path
  * @property string $delimiter

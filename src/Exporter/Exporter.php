@@ -1,11 +1,11 @@
 <?php
-namespace apostal89\exporter\Exporter;
+namespace sorokinmedia\exporter\Exporter;
 
-use apostal89\exporter\Adapter\AdapterInterface;
+use sorokinmedia\exporter\Adapter\AdapterInterface;
 
 /**
  * Class Exporter
- * @package apostal89\exporter\Exporter
+ * @package sorokinmedia\exporter\Exporter
  *
  * @property AdapterInterface $adapter
  */

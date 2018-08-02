@@ -1,9 +1,9 @@
 <?php
-namespace apostal89\exporter\Exporter;
+namespace sorokinmedia\exporter\Exporter;
 
 /**
  * Interface ExporterInterface
- * @package apostal89\exporter\Exporter
+ * @package sorokinmedia\exporter\Exporter
  */
 interface ExporterInterface
 {

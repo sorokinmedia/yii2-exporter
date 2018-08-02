@@ -1,9 +1,9 @@
 <?php
-namespace apostal89\exporter\Adapter;
+namespace sorokinmedia\exporter\Adapter;
 
 /**
  * Class AbstractAdapter
- * @package apostal89\exporter\Adapter
+ * @package sorokinmedia\exporter\Adapter
  *
  * @property string|array $result
  * @property string $delimiter

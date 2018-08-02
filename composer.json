@@ -1,5 +1,5 @@
 {
-    "name": "apostal89/yii2-exporter",
+    "name": "sorokinmedia/yii2-exporter",
     "description": "Exporter for Yii2",
     "type": "yii2-extension",
     "keywords": ["yii2", "yii 2"],
@@ -9,11 +9,16 @@
             "name": "Pavel Semin",
             "email": "raskrutka89@gmail.com",
             "homepage": "https://vk.com/semin_p"
+        },
+        {
+            "name": "Ruslan Gilyazetdinov",
+            "email": "Ma3oBblu@gmail.com",
+            "homepage": "https://vk.com/ma3obblu"
         }
     ],
     "support": {
-        "issues": "https://github.com/apostal89/yii2-exporter/issues?state=open",
-        "source": "https://github.com/apostal89/yii2-exporter"
+        "issues": "https://github.com/sorokinmedia/yii2-exporter/issues?state=open",
+        "source": "https://github.com/sorokinmedia/yii2-exporter"
     },
     "require": {
         "yiisoft/yii2": ">=2.0.6"
@@ -23,10 +28,10 @@
     },
     "autoload": {
         "psr-4": {
-            "apostal89\\exporter\\": "src/",
-            "apostal89\\exporter\\Adapter\\": "src/Adapter/",
-            "apostal89\\exporter\\Exporter\\": "src/Exporter",
-            "apostal89\\exporter\\tests\\": "tests/"
+            "sorokinmedia\\exporter\\": "src/",
+            "sorokinmedia\\exporter\\Adapter\\": "src/Adapter/",
+            "sorokinmedia\\exporter\\Exporter\\": "src/Exporter",
+            "sorokinmedia\\exporter\\tests\\": "tests/"
         }
     },
     "extra": {
