@@ -33,9 +33,10 @@ class AbstractAdapter implements AdapterInterface
     /**
      * @param array $data
      * @param string $filename
+     * @param bool $lowercase
      * @return mixed|void
      */
-    public function output(array $data, string $filename)
+    public function output(array $data, string $filename, bool $lowercase = false)
     {
 
     }

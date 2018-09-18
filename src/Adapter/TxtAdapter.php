@@ -29,12 +29,17 @@ class TxtAdapter extends AbstractAdapter
 
     /**
      * @param array $data
+     * @param bool $lowercase
      */
-    protected function convert(array $data)
+    protected function convert(array $data, bool $lowercase = false)
     {
         $result = '';
         foreach ($data as $row) {
-            $result .= mb_strtolower($row) . $this->delimiter;
+            if ($lowercase === true){
+                $result .= mb_strtolower($row) . $this->delimiter;
+            } else {
+                $result .= $row . $this->delimiter;
+            }
         }
         $this->result = $result;
     }
@@ -66,11 +71,12 @@ class TxtAdapter extends AbstractAdapter
     /**
      * @param array $data
      * @param string|null $filename
+     * @param bool $lowercase
      * @return mixed|void
      */
-    public function output(array $data, string $filename = null)
+    public function output(array $data, string $filename = null, bool $lowercase = false)
     {
-        $this->convert($data);
+        $this->convert($data, $lowercase);
         header('Content-Type: ' . $this->mimeType);
         header('Content-Disposition: attachment; filename="' . $this->getFileName($filename) . $this->extension . '";');
         echo $this->result; exit();

@@ -10,9 +10,10 @@ interface AdapterInterface
     /**
      * @param array $data
      * @param string $filename
+     * @param bool $lowercase
      * @return mixed
      */
-    public function output(array $data, string $filename);
+    public function output(array $data, string $filename, bool $lowercase = false);
 
     /**
      * @param array $data
