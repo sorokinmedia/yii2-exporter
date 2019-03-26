@@ -24,7 +24,7 @@ class CsvAdapter extends AbstractAdapter
             $this->extension = ".csv";
         }
         $this->path = $path;
-        $this->mimeType = 'text/csv';
+        $this->mimeType = 'application/csv';
     }
 
     /**
@@ -76,11 +76,16 @@ class CsvAdapter extends AbstractAdapter
      */
     public function output(array $data, string $filename = null, bool $lowercase = false)
     {
-        $this->convert($data, $lowercase);
+        //$this->convert($data, $lowercase);
         header('Content-Type: ' . $this->mimeType);
         header('Access-Control-Expose-Headers: Content-Disposition');
         header('Content-Disposition: attachment; filename="' . $this->getFileName($filename) . $this->extension . '";');
-        echo $this->result; exit();
+        echo "\xEF\xBB\xBF"; // utf-8 in excell, add BOM
+        $f = fopen('php://output', 'w');
+        foreach ($data as $line) {
+            fputcsv($f, $line, $this->delimiter);
+        }
+        exit;
     }
 
     /**
@@ -93,10 +98,14 @@ class CsvAdapter extends AbstractAdapter
     {
         $this->convert($data);
         $this->getFilePath($path, $filename);
-        $file = file_put_contents($this->path, $this->result);
+        $file = fopen($this->path, 'w');
         if ($file === false) {
             throw new \RuntimeException('Ошибка записи файла');
         }
+        foreach ($data as $line) {
+            fputcsv($file, $line, $this->delimiter);
+        }
+        fclose($file);
         return $this->path;
     }
 
