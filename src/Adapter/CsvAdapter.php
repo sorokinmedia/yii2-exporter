@@ -17,11 +17,11 @@ class CsvAdapter extends AbstractAdapter
     {
         $this->delimiter = $delimiter;
         if ($this->delimiter === null){
-            $this->delimiter = "\r\n";
+            $this->delimiter = ';';
         }
         $this->extension = $extension;
         if ($this->extension === null){
-            $this->extension = ".csv";
+            $this->extension = '.csv';
         }
         $this->path = $path;
         $this->mimeType = 'application/csv';
@@ -81,7 +81,7 @@ class CsvAdapter extends AbstractAdapter
         header('Access-Control-Expose-Headers: Content-Disposition');
         header('Content-Disposition: attachment; filename="' . $this->getFileName($filename) . $this->extension . '";');
         echo "\xEF\xBB\xBF"; // utf-8 in excell, add BOM
-        $f = fopen('php://output', 'w');
+        $f = fopen('php://output', 'w+');
         foreach ($data as $line) {
             fputcsv($f, $line, $this->delimiter);
         }
@@ -96,7 +96,6 @@ class CsvAdapter extends AbstractAdapter
      */
     public function save(array $data, string $filename = null, string $path = null): string
     {
-        //$this->convert($data);
         $this->getFilePath($path, $filename);
         $file = fopen($this->path, 'w+');
         if ($file === false) {
