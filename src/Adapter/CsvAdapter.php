@@ -96,9 +96,9 @@ class CsvAdapter extends AbstractAdapter
      */
     public function save(array $data, string $filename = null, string $path = null): string
     {
-        $this->convert($data);
+        //$this->convert($data);
         $this->getFilePath($path, $filename);
-        $file = fopen($this->path, 'w');
+        $file = fopen($this->path, 'w+');
         if ($file === false) {
             throw new \RuntimeException('Ошибка записи файла');
         }
