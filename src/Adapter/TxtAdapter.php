@@ -16,11 +16,11 @@ class TxtAdapter extends AbstractAdapter
     public function __construct(string $path, string $delimiter = null, string $extension = null)
     {
         $this->delimiter = $delimiter;
-        if (is_null($this->delimiter)){
+        if ($this->delimiter === null){
             $this->delimiter = "\r\n";
         }
         $this->extension = $extension;
-        if (is_null($this->extension)){
+        if ($this->extension === null){
             $this->extension = ".txt";
         }
         $this->path = $path;
@@ -50,7 +50,7 @@ class TxtAdapter extends AbstractAdapter
      */
     protected function getFilePath(string $path = null, string $filename)
     {
-        if (is_null($path)){
+        if ($path === null){
             $path = $this->path;
         }
         $this->path = $path . $this->getFileName($filename) . $this->extension; //TODO: checkPath
@@ -62,7 +62,7 @@ class TxtAdapter extends AbstractAdapter
      */
     protected function getFileName(string $filename = null) : string
     {
-        if (is_null($filename)){
+        if ($filename === null){
             return md5(time());
         }
         return $filename;
