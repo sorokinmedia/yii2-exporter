@@ -48,7 +48,7 @@ class TxtAdapter extends AbstractAdapter
      * @param string|null $path
      * @param string $filename
      */
-    protected function getFilePath(string $path = null, string $filename)
+    protected function getFilePath(string $filename, string $path = null)
     {
         if ($path === null){
             $path = $this->path;
@@ -94,7 +94,7 @@ class TxtAdapter extends AbstractAdapter
     public function save(array $data, string $filename = null, string $path = null, string $encoding = ''): string
     {
         $this->convert($data);
-        $this->getFilePath($path, $filename);
+        $this->getFilePath($filename, $path);
         $file = file_put_contents($this->path, $this->result);
         if ($file === false) {
             throw new \RuntimeException('Ошибка записи файла');

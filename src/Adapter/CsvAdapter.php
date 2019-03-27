@@ -95,10 +95,6 @@ class CsvAdapter extends AbstractAdapter
         $this->getFilePath($filename, $path);
         $writer = WriterFactory::create(Type::CSV);
         $writer->openToFile($this->path);
-        $writer->setEncoding($this->encoding);
-        if ($this->encoding === 'UTF-16') {
-            $writer->setShouldAddBom(false);
-        }
         $writer->setFieldDelimiter($this->delimiter);
         $writer->addRows($data);
         $writer->close();
