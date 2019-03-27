@@ -92,7 +92,7 @@ class CsvAdapter extends AbstractAdapter
      */
     public function save(array $data, string $filename = null, string $path = null, string $encoding = null): string
     {
-        $this->getFilePath($path, $filename);
+        $this->getFilePath($filename, $path);
         $writer = WriterFactory::create(Type::CSV);
         $writer->openToFile($this->path);
         $writer->setEncoding($this->encoding);
