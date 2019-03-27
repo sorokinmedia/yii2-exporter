@@ -1,6 +1,9 @@
 <?php
 namespace sorokinmedia\exporter\Adapter;
 
+use Box\Spout\Common\Type;
+use Box\Spout\Writer\WriterFactory;
+
 /**
  * Class CsvAdapter
  * @package sorokinmedia\exporter\Adapter
@@ -93,18 +96,19 @@ class CsvAdapter extends AbstractAdapter
      * @param string|null $filename
      * @param string|null $path
      * @return string
+     * @throws \Box\Spout\Common\Exception\IOException
+     * @throws \Box\Spout\Common\Exception\InvalidArgumentException
+     * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
+     * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
      */
     public function save(array $data, string $filename = null, string $path = null): string
     {
         $this->getFilePath($path, $filename);
-        $file = fopen($this->path, 'w+');
-        if ($file === false) {
-            throw new \RuntimeException('Ошибка записи файла');
-        }
-        foreach ($data as $line) {
-            fputcsv($file, $line, $this->delimiter);
-        }
-        fclose($file);
+        $writer = WriterFactory::create(Type::CSV);
+        $writer->openToFile($this->path);
+        $writer->setFieldDelimiter(';');
+        $writer->addRows($data);
+        $writer->close();
         return $this->path;
     }
 
