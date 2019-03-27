@@ -34,21 +34,23 @@ class Exporter implements ExporterInterface
     /**
      * @param array $data
      * @param string $filename
+     * @param string $encoding
      * @return mixed
      */
-    public function output(array $data, string $filename)
+    public function output(array $data, string $filename, string $encoding)
     {
-        return $this->getAdapter()->output($data, $filename);
+        return $this->getAdapter()->output($data, $filename, $encoding);
     }
 
     /**
      * @param array $data
      * @param string $filename
      * @param string $path
+     * @param string $encoding
      * @return string
      */
-    public function save(array $data, string $filename, string $path): string
+    public function save(array $data, string $filename, string $path, string $encoding): string
     {
-        return $this->getAdapter()->save($data, $filename, $path);
+        return $this->getAdapter()->save($data, $filename, $path, $encoding);
     }
 }
