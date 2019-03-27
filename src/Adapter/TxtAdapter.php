@@ -71,10 +71,11 @@ class TxtAdapter extends AbstractAdapter
     /**
      * @param array $data
      * @param string|null $filename
+     * @param string $encoding
      * @param bool $lowercase
      * @return mixed|void
      */
-    public function output(array $data, string $filename = null, bool $lowercase = false)
+    public function output(array $data, string $filename = null, string $encoding = '', bool $lowercase = false)
     {
         $this->convert($data, $lowercase);
         header('Content-Type: ' . $this->mimeType);
@@ -87,9 +88,10 @@ class TxtAdapter extends AbstractAdapter
      * @param array $data
      * @param string|null $filename
      * @param string|null $path
+     * @param string $encoding
      * @return string
      */
-    public function save(array $data, string $filename = null, string $path = null): string
+    public function save(array $data, string $filename = null, string $path = null, string $encoding = ''): string
     {
         $this->convert($data);
         $this->getFilePath($path, $filename);

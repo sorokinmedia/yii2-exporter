@@ -11,12 +11,13 @@ use Box\Spout\Writer\WriterFactory;
 class CsvAdapter extends AbstractAdapter
 {
     /**
-     * TxtAdapter constructor.
+     * CsvAdapter constructor.
      * @param string $path
      * @param string|null $delimiter
      * @param string|null $extension
+     * @param string $encoding
      */
-    public function __construct(string $path, string $delimiter = null, string $extension = null)
+    public function __construct(string $path, string $delimiter = null, string $extension = null, string $encoding = null)
     {
         $this->delimiter = $delimiter;
         if ($this->delimiter === null){
@@ -26,32 +27,19 @@ class CsvAdapter extends AbstractAdapter
         if ($this->extension === null){
             $this->extension = '.csv';
         }
+        $this->encoding = $encoding;
+        if ($this->encoding === null){
+            $this->encoding = 'UTF-8';
+        }
         $this->path = $path;
         $this->mimeType = 'application/csv';
-    }
-
-    /**
-     * @param array $data
-     * @param bool $lowercase
-     */
-    protected function convert(array $data, bool $lowercase = false)
-    {
-        $result = '';
-        foreach ($data as $row) {
-            if ($lowercase === true){
-                $result .= mb_strtolower($row) . $this->delimiter;
-            } else {
-                $result .= $row . $this->delimiter;
-            }
-        }
-        $this->result = $result;
     }
 
     /**
      * @param string|null $path
      * @param string $filename
      */
-    protected function getFilePath(string $path = null, string $filename)
+    protected function getFilePath(string $filename, string $path = null)
     {
         if ($path === null){
             $path = $this->path;
@@ -74,20 +62,20 @@ class CsvAdapter extends AbstractAdapter
     /**
      * @param array $data
      * @param string|null $filename
+     * @param string|null $encoding
      * @param bool $lowercase
      * @return mixed|void
+     * @throws \Box\Spout\Common\Exception\IOException
+     * @throws \Box\Spout\Common\Exception\InvalidArgumentException
+     * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
+     * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
      */
-    public function output(array $data, string $filename = null, bool $lowercase = false)
+    public function output(array $data, string $filename = null, string $encoding = null, bool $lowercase = false)
     {
-        //$this->convert($data, $lowercase);
-        header('Content-Type: ' . $this->mimeType);
-        header('Access-Control-Expose-Headers: Content-Disposition');
-        header('Content-Disposition: attachment; filename="' . $this->getFileName($filename) . $this->extension . '";');
-        echo "\xEF\xBB\xBF"; // utf-8 in excell, add BOM
-        $f = fopen('php://output', 'w+');
-        foreach ($data as $line) {
-            fputcsv($f, $line, $this->delimiter);
-        }
+        $writer = WriterFactory::create(Type::CSV);
+        $writer->openToBrowser($this->getFileName($filename) . $this->extension);
+        $writer->setFieldDelimiter($this->delimiter);
+        $writer->addRows($data);
         exit;
     }
 
@@ -95,18 +83,23 @@ class CsvAdapter extends AbstractAdapter
      * @param array $data
      * @param string|null $filename
      * @param string|null $path
+     * @param string|null $encoding
      * @return string
      * @throws \Box\Spout\Common\Exception\IOException
      * @throws \Box\Spout\Common\Exception\InvalidArgumentException
      * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
      * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
      */
-    public function save(array $data, string $filename = null, string $path = null): string
+    public function save(array $data, string $filename = null, string $path = null, string $encoding = null): string
     {
         $this->getFilePath($path, $filename);
         $writer = WriterFactory::create(Type::CSV);
         $writer->openToFile($this->path);
-        $writer->setFieldDelimiter(';');
+        $writer->setEncoding($this->encoding);
+        if ($this->encoding === 'UTF-16') {
+            $writer->setShouldAddBom(false);
+        }
+        $writer->setFieldDelimiter($this->delimiter);
         $writer->addRows($data);
         $writer->close();
         return $this->path;

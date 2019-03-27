@@ -10,6 +10,7 @@ namespace sorokinmedia\exporter\Adapter;
  * @property string $mimeType
  * @property string $extension
  * @property string $path
+ * @property string $encoding
  */
 class AbstractAdapter implements AdapterInterface
 {
@@ -18,14 +19,16 @@ class AbstractAdapter implements AdapterInterface
     public $mimeType = '';
     public $extension = '';
     public $path = '';
+    public $encoding = '';
 
     /**
      * @param array $data
      * @param string $filename
      * @param string $path
+     * @param string $encoding
      * @return string
      */
-    public function save(array $data, string $filename, string $path) : string
+    public function save(array $data, string $filename, string $path, string $encoding) : string
     {
         return '';
     }
@@ -33,10 +36,11 @@ class AbstractAdapter implements AdapterInterface
     /**
      * @param array $data
      * @param string $filename
+     * @param string $encoding
      * @param bool $lowercase
      * @return mixed|void
      */
-    public function output(array $data, string $filename, bool $lowercase = false)
+    public function output(array $data, string $filename, string $encoding, bool $lowercase = false)
     {
 
     }
