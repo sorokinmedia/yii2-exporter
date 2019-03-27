@@ -37,7 +37,7 @@ class Exporter implements ExporterInterface
      * @param string $encoding
      * @return mixed
      */
-    public function output(array $data, string $filename, string $encoding)
+    public function output(array $data, string $filename, string $encoding = null)
     {
         return $this->getAdapter()->output($data, $filename, $encoding);
     }
@@ -49,7 +49,7 @@ class Exporter implements ExporterInterface
      * @param string $encoding
      * @return string
      */
-    public function save(array $data, string $filename, string $path, string $encoding): string
+    public function save(array $data, string $filename, string $path, string $encoding = null): string
     {
         return $this->getAdapter()->save($data, $filename, $path, $encoding);
     }
