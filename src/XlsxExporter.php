@@ -2,7 +2,7 @@
 namespace sorokinmedia\exporter;
 
 use sorokinmedia\exporter\Adapter\AdapterInterface;
-use sorokinmedia\exporter\Adapter\CsvAdapter;
+use sorokinmedia\exporter\Adapter\XlsxAdapter;
 
 /**
  * Class XlsxExporter
@@ -34,7 +34,7 @@ class XlsxExporter extends ExporterComponent
      */
     protected function prepareAdapter() : AdapterInterface
     {
-        /** @var CsvAdapter $adapter */
-        return new CsvAdapter($this->path, $this->delimiter, $this->extension);
+        /** @var XlsxExporter $adapter */
+        return new XlsxAdapter($this->path, $this->delimiter, $this->extension);
     }
 }
