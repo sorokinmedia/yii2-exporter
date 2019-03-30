@@ -90,7 +90,6 @@ class XlsxAdapter extends AbstractAdapter
      */
     public function save(array $data, string $filename = null, string $path = null, string $encoding = null): string
     {
-        echo get_current_user();
         $this->getFilePath($filename, $path);
         $writer = WriterFactory::create(Type::XLSX);
         $writer->openToFile($this->path);
