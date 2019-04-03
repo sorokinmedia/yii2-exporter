@@ -69,7 +69,7 @@ class XlsxAdapter extends AbstractAdapter
      * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
      * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
      */
-    public function output(array $data, string $filename = null, string $encoding = null, bool $lowercase = false)
+    public function output(array $data, string $filename = null, string $encoding = '', bool $lowercase = false)
     {
         $writer = WriterFactory::create(Type::XLSX);
         $writer->openToBrowser($this->getFileName($filename) . $this->extension);
@@ -88,7 +88,7 @@ class XlsxAdapter extends AbstractAdapter
      * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
      * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
      */
-    public function save(array $data, string $filename = null, string $path = null, string $encoding = null): string
+    public function save(array $data, string $filename = null, string $path = null, string $encoding = ''): string
     {
         $this->getFilePath($filename, $path);
         $writer = WriterFactory::create(Type::XLSX);
