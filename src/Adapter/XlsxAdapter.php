@@ -74,6 +74,7 @@ class XlsxAdapter extends AbstractAdapter
         $writer = WriterFactory::create(Type::XLSX);
         $writer->openToBrowser($this->getFileName($filename) . $this->extension);
         $writer->addRows($data);
+        $writer->close();
         exit;
     }
 
