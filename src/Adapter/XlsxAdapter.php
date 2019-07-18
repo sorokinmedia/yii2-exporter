@@ -97,8 +97,12 @@ class XlsxAdapter extends AbstractAdapter
     {
         $this->getFilePath($filename, $path);
         $writer = WriterEntityFactory::createXLSXWriter();
+        $multipleRows = [];
+        foreach ($data as $value) {
+            $multipleRows[] = WriterEntityFactory::createRowFromArray($value);
+        }
         $writer->openToFile($this->path);
-        $writer->addRows($data);
+        $writer->addRows($multipleRows);
         $writer->close();
         return $this->path;
     }

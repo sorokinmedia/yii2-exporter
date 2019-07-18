@@ -73,8 +73,12 @@ class CsvAdapter extends AbstractAdapter
     {
         $writer = WriterEntityFactory::createCSVWriter();
         $writer->openToBrowser($this->getFileName($filename) . $this->extension);
+        $multipleRows = [];
+        foreach ($data as $value) {
+            $multipleRows[] = WriterEntityFactory::createRowFromArray($value);
+        }
         $writer->setFieldDelimiter($this->delimiter);
-        $writer->addRows($data);
+        $writer->addRows($multipleRows);
         exit;
     }
 
@@ -93,9 +97,13 @@ class CsvAdapter extends AbstractAdapter
     {
         $this->getFilePath($filename, $path);
         $writer = WriterEntityFactory::createCSVWriter();
+        $multipleRows = [];
+        foreach ($data as $value) {
+            $multipleRows[] = WriterEntityFactory::createRowFromArray($value);
+        }
         $writer->openToFile($this->path);
         $writer->setFieldDelimiter($this->delimiter);
-        $writer->addRows($data);
+        $writer->addRows($multipleRows);
         $writer->close();
         return $this->path;
     }
