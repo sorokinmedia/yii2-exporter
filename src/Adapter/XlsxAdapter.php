@@ -74,7 +74,7 @@ class XlsxAdapter extends AbstractAdapter
         $writer = WriterEntityFactory::createXLSXWriter();
         $multipleRows = [];
         foreach ($data as $value) {
-            $multipleRows[] = WriterEntityFactory::createRow($value);
+            $multipleRows[] = WriterEntityFactory::createRowFromArray($value);
         }
         $writer->openToBrowser($this->getFileName($filename) . $this->extension);
         $writer->addRows($multipleRows);
