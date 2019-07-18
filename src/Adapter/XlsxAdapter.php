@@ -1,8 +1,8 @@
 <?php
 namespace sorokinmedia\exporter\Adapter;
 
-use Box\Spout\Common\Type;
-use Box\Spout\Writer\WriterFactory;
+
+use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
 
 /**
  * Class XlsxAdapter
@@ -71,7 +71,7 @@ class XlsxAdapter extends AbstractAdapter
      */
     public function output(array $data, string $filename = null, string $encoding = '', bool $lowercase = false)
     {
-        $writer = WriterFactory::create(Type::XLSX);
+        $writer = WriterEntityFactory::createXLSXWriter();
         $writer->openToBrowser($this->getFileName($filename) . $this->extension);
         $writer->addRows($data);
         $writer->close();
@@ -92,7 +92,7 @@ class XlsxAdapter extends AbstractAdapter
     public function save(array $data, string $filename = null, string $path = null, string $encoding = ''): string
     {
         $this->getFilePath($filename, $path);
-        $writer = WriterFactory::create(Type::XLSX);
+        $writer = WriterEntityFactory::createXLSXWriter();
         $writer->openToFile($this->path);
         $writer->addRows($data);
         $writer->close();
