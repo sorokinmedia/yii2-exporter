@@ -79,6 +79,7 @@ class TxtAdapter extends AbstractAdapter
     {
         $this->convert($data, $lowercase);
         header('Content-Type: ' . $this->mimeType);
+        header('Access-Control-Allow-Headers: Content-Disposition');
         header('Access-Control-Expose-Headers: Content-Disposition');
         header('Content-Disposition: attachment; filename="' . $this->getFileName($filename) . $this->extension . '";');
         echo $this->result; exit();
