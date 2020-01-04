@@ -1,6 +1,6 @@
 # yii2-exporter
 
-[![Total Downloads](https://img.shields.io/packagist/dt/sorokinmedia/yii2-promocodes.svg)](https://packagist.org/packages/sorokinmedia/yii2-promocodes)
+[![Total Downloads](https://img.shields.io/packagist/dt/sorokinmedia/yii2-exporter.svg)](https://packagist.org/packages/sorokinmedia/yii2-exporter)
 
 Плагин позволяет настраивать экспорт данных в файла различного типа.
 

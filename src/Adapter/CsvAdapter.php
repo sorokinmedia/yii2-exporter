@@ -1,8 +1,7 @@
 <?php
 namespace sorokinmedia\exporter\Adapter;
 
-use Box\Spout\Common\Type;
-use Box\Spout\Writer\WriterFactory;
+use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
 
 /**
  * Class CsvAdapter
@@ -72,10 +71,14 @@ class CsvAdapter extends AbstractAdapter
      */
     public function output(array $data, string $filename = null, string $encoding = null, bool $lowercase = false)
     {
-        $writer = WriterFactory::create(Type::CSV);
+        $writer = WriterEntityFactory::createCSVWriter();
         $writer->openToBrowser($this->getFileName($filename) . $this->extension);
+        $multipleRows = [];
+        foreach ($data as $value) {
+            $multipleRows[] = WriterEntityFactory::createRowFromArray($value);
+        }
         $writer->setFieldDelimiter($this->delimiter);
-        $writer->addRows($data);
+        $writer->addRows($multipleRows);
         exit;
     }
 
@@ -93,10 +96,14 @@ class CsvAdapter extends AbstractAdapter
     public function save(array $data, string $filename = null, string $path = null, string $encoding = null): string
     {
         $this->getFilePath($filename, $path);
-        $writer = WriterFactory::create(Type::CSV);
+        $writer = WriterEntityFactory::createCSVWriter();
+        $multipleRows = [];
+        foreach ($data as $value) {
+            $multipleRows[] = WriterEntityFactory::createRowFromArray($value);
+        }
         $writer->openToFile($this->path);
         $writer->setFieldDelimiter($this->delimiter);
-        $writer->addRows($data);
+        $writer->addRows($multipleRows);
         $writer->close();
         return $this->path;
     }
