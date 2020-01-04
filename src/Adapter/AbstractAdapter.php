@@ -1,4 +1,5 @@
 <?php
+
 namespace sorokinmedia\exporter\Adapter;
 
 /**
@@ -14,12 +15,12 @@ namespace sorokinmedia\exporter\Adapter;
  */
 class AbstractAdapter implements AdapterInterface
 {
-    protected $result;
     public $delimiter = '';
     public $mimeType = '';
     public $extension = '';
     public $path = '';
     public $encoding = '';
+    protected $result;
 
     /**
      * @param array $data
@@ -28,7 +29,7 @@ class AbstractAdapter implements AdapterInterface
      * @param string $encoding
      * @return string
      */
-    public function save(array $data, string $filename, string $path, string $encoding) : string
+    public function save(array $data, string $filename, string $path, string $encoding): string
     {
         return '';
     }

@@ -1,7 +1,11 @@
 <?php
+
 namespace sorokinmedia\exporter\Adapter;
 
+use Box\Spout\Common\Exception\InvalidArgumentException;
+use Box\Spout\Common\Exception\IOException;
 use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
+use Box\Spout\Writer\Exception\WriterNotOpenedException;
 
 /**
  * Class CsvAdapter
@@ -19,43 +23,19 @@ class CsvAdapter extends AbstractAdapter
     public function __construct(string $path, string $delimiter = null, string $extension = null, string $encoding = null)
     {
         $this->delimiter = $delimiter;
-        if ($this->delimiter === null){
+        if ($this->delimiter === null) {
             $this->delimiter = ';';
         }
         $this->extension = $extension;
-        if ($this->extension === null){
+        if ($this->extension === null) {
             $this->extension = '.csv';
         }
         $this->encoding = $encoding;
-        if ($this->encoding === null){
+        if ($this->encoding === null) {
             $this->encoding = 'UTF-8';
         }
         $this->path = $path;
         $this->mimeType = 'application/csv';
-    }
-
-    /**
-     * @param string|null $path
-     * @param string $filename
-     */
-    protected function getFilePath(string $filename, string $path = null)
-    {
-        if ($path === null){
-            $path = $this->path;
-        }
-        $this->path = $path . $this->getFileName($filename) . $this->extension; //TODO: checkPath
-    }
-
-    /**
-     * @param string|null $filename
-     * @return string
-     */
-    protected function getFileName(string $filename = null) : string
-    {
-        if ($filename === null){
-            return md5(time());
-        }
-        return $filename;
     }
 
     /**
@@ -64,10 +44,9 @@ class CsvAdapter extends AbstractAdapter
      * @param string|null $encoding
      * @param bool $lowercase
      * @return mixed|void
-     * @throws \Box\Spout\Common\Exception\IOException
-     * @throws \Box\Spout\Common\Exception\InvalidArgumentException
-     * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
-     * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
+     * @throws IOException
+     * @throws InvalidArgumentException
+     * @throws WriterNotOpenedException
      */
     public function output(array $data, string $filename = null, string $encoding = null, bool $lowercase = false)
     {
@@ -83,15 +62,26 @@ class CsvAdapter extends AbstractAdapter
     }
 
     /**
+     * @param string|null $filename
+     * @return string
+     */
+    protected function getFileName(string $filename = null): string
+    {
+        if ($filename === null) {
+            return md5(time());
+        }
+        return $filename;
+    }
+
+    /**
      * @param array $data
      * @param string|null $filename
      * @param string|null $path
      * @param string|null $encoding
      * @return string
-     * @throws \Box\Spout\Common\Exception\IOException
-     * @throws \Box\Spout\Common\Exception\InvalidArgumentException
-     * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
-     * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
+     * @throws IOException
+     * @throws InvalidArgumentException
+     * @throws WriterNotOpenedException
      */
     public function save(array $data, string $filename = null, string $path = null, string $encoding = null): string
     {
@@ -106,6 +96,18 @@ class CsvAdapter extends AbstractAdapter
         $writer->addRows($multipleRows);
         $writer->close();
         return $this->path;
+    }
+
+    /**
+     * @param string|null $path
+     * @param string $filename
+     */
+    protected function getFilePath(string $filename, string $path = null): void
+    {
+        if ($path === null) {
+            $path = $this->path;
+        }
+        $this->path = $path . $this->getFileName($filename) . $this->extension; //TODO: checkPath
     }
 
 }

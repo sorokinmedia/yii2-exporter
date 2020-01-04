@@ -1,5 +1,8 @@
 <?php
+
 namespace sorokinmedia\exporter\Adapter;
+
+use RuntimeException;
 
 /**
  * Class TxtAdapter
@@ -16,56 +19,15 @@ class TxtAdapter extends AbstractAdapter
     public function __construct(string $path, string $delimiter = null, string $extension = null)
     {
         $this->delimiter = $delimiter;
-        if ($this->delimiter === null){
+        if ($this->delimiter === null) {
             $this->delimiter = "\r\n";
         }
         $this->extension = $extension;
-        if ($this->extension === null){
-            $this->extension = ".txt";
+        if ($this->extension === null) {
+            $this->extension = '.txt';
         }
         $this->path = $path;
         $this->mimeType = 'text/plain';
-    }
-
-    /**
-     * @param array $data
-     * @param bool $lowercase
-     */
-    protected function convert(array $data, bool $lowercase = false)
-    {
-        $result = '';
-        foreach ($data as $row) {
-            if ($lowercase === true){
-                $result .= mb_strtolower($row) . $this->delimiter;
-            } else {
-                $result .= $row . $this->delimiter;
-            }
-        }
-        $this->result = $result;
-    }
-
-    /**
-     * @param string|null $path
-     * @param string $filename
-     */
-    protected function getFilePath(string $filename, string $path = null)
-    {
-        if ($path === null){
-            $path = $this->path;
-        }
-        $this->path = $path . $this->getFileName($filename) . $this->extension; //TODO: checkPath
-    }
-
-    /**
-     * @param string|null $filename
-     * @return string
-     */
-    protected function getFileName(string $filename = null) : string
-    {
-        if ($filename === null){
-            return md5(time());
-        }
-        return $filename;
     }
 
     /**
@@ -82,7 +44,37 @@ class TxtAdapter extends AbstractAdapter
         header('Access-Control-Allow-Headers: Content-Disposition');
         header('Access-Control-Expose-Headers: Content-Disposition');
         header('Content-Disposition: attachment; filename="' . $this->getFileName($filename) . $this->extension . '";');
-        echo $this->result; exit();
+        echo $this->result;
+        exit();
+    }
+
+    /**
+     * @param array $data
+     * @param bool $lowercase
+     */
+    protected function convert(array $data, bool $lowercase = false): void
+    {
+        $result = '';
+        foreach ($data as $row) {
+            if ($lowercase === true) {
+                $result .= mb_strtolower($row) . $this->delimiter;
+            } else {
+                $result .= $row . $this->delimiter;
+            }
+        }
+        $this->result = $result;
+    }
+
+    /**
+     * @param string|null $filename
+     * @return string
+     */
+    protected function getFileName(string $filename = null): string
+    {
+        if ($filename === null) {
+            return md5(time());
+        }
+        return $filename;
     }
 
     /**
@@ -98,9 +90,21 @@ class TxtAdapter extends AbstractAdapter
         $this->getFilePath($filename, $path);
         $file = file_put_contents($this->path, $this->result);
         if ($file === false) {
-            throw new \RuntimeException('Ошибка записи файла');
+            throw new RuntimeException('Ошибка записи файла');
         }
         return $this->path;
+    }
+
+    /**
+     * @param string|null $path
+     * @param string $filename
+     */
+    protected function getFilePath(string $filename, string $path = null): void
+    {
+        if ($path === null) {
+            $path = $this->path;
+        }
+        $this->path = $path . $this->getFileName($filename) . $this->extension; //TODO: checkPath
     }
 
 }

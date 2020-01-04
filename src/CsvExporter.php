@@ -1,6 +1,8 @@
 <?php
+
 namespace sorokinmedia\exporter;
 
+use InvalidArgumentException;
 use sorokinmedia\exporter\Adapter\AdapterInterface;
 use sorokinmedia\exporter\Adapter\CsvAdapter;
 
@@ -15,16 +17,16 @@ use sorokinmedia\exporter\Adapter\CsvAdapter;
 class CsvExporter extends ExporterComponent
 {
     public $path;
-    public $delimiter = null;
-    public $extension = null;
+    public $delimiter;
+    public $extension;
 
     /**
      * @inheritdoc
      */
     public function init()
     {
-        if (!isset($this->path)){
-            throw new \InvalidArgumentException('Не указан дефолтный каталог для сохранения файлов');
+        if (!isset($this->path)) {
+            throw new InvalidArgumentException('Не указан дефолтный каталог для сохранения файлов');
         }
         parent::init();
     }
@@ -32,7 +34,7 @@ class CsvExporter extends ExporterComponent
     /**
      * @return AdapterInterface
      */
-    protected function prepareAdapter() : AdapterInterface
+    protected function prepareAdapter(): AdapterInterface
     {
         /** @var CsvAdapter $adapter */
         return new CsvAdapter($this->path, $this->delimiter, $this->extension);

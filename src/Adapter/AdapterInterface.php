@@ -1,4 +1,5 @@
 <?php
+
 namespace sorokinmedia\exporter\Adapter;
 
 /**
@@ -23,5 +24,5 @@ interface AdapterInterface
      * @param string $encoding
      * @return string
      */
-    public function save(array $data, string $filename, string $path, string $encoding) : string;
+    public function save(array $data, string $filename, string $path, string $encoding): string;
 }

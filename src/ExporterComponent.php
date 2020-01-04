@@ -1,4 +1,5 @@
 <?php
+
 namespace sorokinmedia\exporter;
 
 use sorokinmedia\exporter\Adapter\AdapterInterface;
@@ -27,12 +28,12 @@ abstract class ExporterComponent extends Component
     /**
      * @return AdapterInterface
      */
-    abstract protected function prepareAdapter();
+    abstract protected function prepareAdapter(): AdapterInterface;
 
     /**
      * @return Exporter
      */
-    public function getExporter()
+    public function getExporter(): Exporter
     {
         return $this->exporter;
     }
