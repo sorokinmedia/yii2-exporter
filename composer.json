@@ -13,7 +13,7 @@
         {
             "name": "Ruslan Gilyazetdinov",
             "email": "Ma3oBblu@gmail.com",
-            "homepage": "https://vk.com/ma3obblu"
+            "homepage": "https://www.facebook.com/Ma3oBblu"
         }
     ],
     "support": {
@@ -21,11 +21,12 @@
         "source": "https://github.com/sorokinmedia/yii2-exporter"
     },
     "require": {
-        "yiisoft/yii2": ">=2.0.6",
+        "yiisoft/yii2": ">=2.0.30",
         "box/spout": "*"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.*"
+        "roave/security-advisories": "dev-master",
+        "phpunit/phpunit": "8.*"
     },
     "autoload": {
         "psr-4": {
